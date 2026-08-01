@@ -2,7 +2,7 @@ import { ROLES } from "../constants/index.js";
 import { MockRepository } from "../repositories/mock.repository.js";
 import { ProductRepository } from "../repositories/product.repository.js";
 import { UserRepository } from "../repositories/user.repository.js";
-import { generateOrders, generateUsers } from "../utils/mocks.generator.js";
+import { generateOrders, generateUsers } from "../models/mocks.generator.js";
 
 export class MockService {
   constructor() {

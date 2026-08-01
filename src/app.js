@@ -4,6 +4,7 @@ import { config } from "./config/env.config.js";
 import productRoutes from "./routes/product.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import mockRoutes from "./routes/mock.routes.js";
+import { errorHandler } from "./errors/errorHandler.js";
 
 const app = express();
 
@@ -13,6 +14,19 @@ app.use(express.json());
 app.use("/api/mocks", mockRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
+
+app.use((req, res) => {
+  res.status(404).json({
+    status: "error",
+    error: {
+      code: "NOT_FOUND",
+      message: "Ruta no encontrada.",
+      details: null,
+    },
+  });
+});
+
+app.use(errorHandler);
 
 // Conexión usando la configuración centralizada
 mongoose

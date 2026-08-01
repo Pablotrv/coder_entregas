@@ -17,7 +17,7 @@ API REST para la gestión de productos y usuarios de **ShipNow**, refactorizada 
 
 El código está estructurado bajo el principio de separación de responsabilidades:
 
-```text
+````text
 src/
 ├── config/         # Configuración centralizada y validación de entorno
 ├── constants/      # Constantes inmutables (roles, estados de productos)
@@ -27,17 +27,52 @@ src/
 ├── routes/         # Definición de endpoints de Express
 ├── services/       # Lógica de negocio
 └── app.js          # Punto de entrada de la aplicación
-├── services/       # Lógica de negocio
-└── app.js          # Punto de entrada de la aplicación
 
-+--- + +## 🧪 Endpoints de Mocking + +Se ha incorporado un módulo de mocking para generar datos de prueba. Para usarlo, primero instala la dependencia de Faker si aún no lo has hecho: + +bash +npm install @faker-js/faker + + +Luego, puedes usar los siguientes endpoints: + +- GET /api/mocks/users: Devuelve un listado de 50 usuarios generados al azar (sin guardarlos en la base de datos). + +- POST /api/mocks/users: Crea 50 usuarios de prueba y los inserta en la base de datos. + +- GET /api/mocks/orders: Devuelve un listado de 20 pedidos generados al azar (sin guardarlos en la base de datos). + +- POST /api/mocks/orders: Crea 20 pedidos de prueba y los inserta en la base de datos. Requiere que existan usuarios y productos previamente. + +> Nota: Los endpoints POST son ideales para poblar tu base de datos de desarrollo con datos realistas para realizar pruebas.
+## 🧪 Endpoints de Mocking
+Se ha incorporado un módulo de mocking para generar datos de prueba. Para usarlo, primero instala la dependencia de Faker si aún no lo has hecho:
 
+```bash
+npm install @faker-js/faker
+````
 
-Con esta actualización, la documentación del proyecto está al día con las últimas funcionalidades.
+Endpoints disponibles:
 
-<!--
-[PROMPT_SUGGESTION]Implementa un middleware de manejo de errores para centralizar y simplificar el código en los controladores.[/PROMPT_SUGGESTION]
-[PROMPT_SUGGESTION]Agrega paginación a los endpoints que devuelven listados, como `GET /api/products` y `GET /api/users`.[/PROMPT_SUGGESTION]
--->
+- `GET /api/mocks/users`: devuelve un listado de 50 usuarios generados al azar (sin guardarlos en la base de datos).
+- `POST /api/mocks/users`: crea 50 usuarios de prueba y los inserta en la base de datos.
+- `GET /api/mocks/orders`: devuelve un listado de 20 pedidos generados al azar (sin guardarlos en la base de datos).
+- `POST /api/mocks/orders`: crea 20 pedidos de prueba y los inserta en la base de datos. Requiere que existan usuarios y productos previamente.
+
+> Nota: los endpoints `POST` son ideales para poblar tu base de datos de desarrollo con datos realistas para realizar pruebas.
+
+## 🧨 Manejo centralizado de errores
+
+El proyecto ahora utiliza errores personalizados y un middleware global para respuestas consistentes.
+
+- Todos los errores esperados se lanzan como `AppError`.
+- El middleware `src/errors/errorHandler.js` devuelve respuestas con la estructura:
+
+```json
+{
+  "status": "error",
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Mensaje descriptivo",
+    "details": null
+  }
+}
+```
+
+- Errores de rutas no existentes devuelven `404 NOT_FOUND`.
+- Errores de validación de mocks devuelven `400 INVALID_INPUT` o `400 MOCK_GENERATION_FAILED` cuando los datos de entrada son incorrectos o faltan usuarios/productos.
+
+## ⚠️ Casos inválidos del módulo de mocks
+
+- `generateUsers(count)` valida que `count` sea un entero positivo.
+- `generateOrders(count, users, deliveryPersonnel, products)` valida que `count` sea un entero positivo y que `users` y `products` sean arreglos válidos.
+- Si no hay usuarios o productos disponibles, se lanza un error con código `MOCK_GENERATION_FAILED`.
+
+Con esta estructura, la API responde errores de forma centralizada y coherente con la arquitectura de capas.
+
+```
 
 ```

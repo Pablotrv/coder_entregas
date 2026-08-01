@@ -1,10 +1,17 @@
-import { Router } from 'express';
-import { ProductController } from '../controllers/product.controller.js';
+import { Router } from "express";
+import { ProductController } from "../controllers/product.controller.js";
+import { asyncWrapper } from "../errors/asyncWrapper.js";
 
 const router = Router();
 const controller = new ProductController();
 
-router.get('/', (req, res) => controller.getProducts(req, res));
-router.post('/', (req, res) => controller.createProduct(req, res));
+router.get(
+  "/",
+  asyncWrapper((req, res) => controller.getProducts(req, res)),
+);
+router.post(
+  "/",
+  asyncWrapper((req, res) => controller.createProduct(req, res)),
+);
 
 export default router;
