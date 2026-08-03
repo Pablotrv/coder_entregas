@@ -73,6 +73,24 @@ El proyecto ahora utiliza errores personalizados y un middleware global para res
 
 Con esta estructura, la API responde errores de forma centralizada y coherente con la arquitectura de capas.
 
+## 🪵 Logging Profesional con Winston
+
+El proyecto integra `winston` para un manejo de logs robusto y configurable según el entorno.
+
+- **Entorno de Desarrollo**: Los logs se muestran en la consola con colores y un nivel de detalle `debug`, ideal para el desarrollo local.
+- **Entorno de Producción**: Los logs se muestran en consola a partir del nivel `info` y los errores (`error` y `fatal`) se persisten en el archivo `logs/errors.log` en formato JSON para su posterior análisis.
+
+### Eventos Registrados
+
+- Inicio del servidor y conexión a la base de datos.
+- Peticiones HTTP entrantes (`http`).
+- Generación de datos de prueba (`info`).
+- Errores de negocio (ej. validaciones, recursos no encontrados) como `warning`.
+- Rutas no encontradas (`warning`).
+- Errores inesperados del servidor (`error`).
+
+La carpeta `logs/` está incluida en el `.gitignore` para evitar que los archivos de log sean versionados.
+
 ```
 
 ```
