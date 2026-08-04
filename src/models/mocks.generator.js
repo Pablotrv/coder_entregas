@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { ORDER_PRIORITY, ORDER_STATUS, ROLES } from "../constants/domain.js";
+import { ORDER_PRIORITY, ORDER_STATUS, ROLES } from "../domain.js";
 import { AppError } from "../errors/AppError.js";
 import { errorDictionary } from "../errors/errorDictionary.js";
 
