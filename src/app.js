@@ -58,4 +58,4 @@ mongoose
       logger.info(`Servidor ShipNow en puerto ${config.port} [${config.env}]`);
     });
   })
-  .catch((err) => logger.error("Error al conectar a MongoDB:", err));
+  .catch((err) => logger.fatal("Error fatal al conectar a MongoDB:", err));
