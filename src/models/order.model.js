@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ORDER_PRIORITY, ORDER_STATUS } from "../constants/index.js";
+import { ORDER_PRIORITY, ORDER_STATUS } from "../domain.js";
 
 const orderSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },

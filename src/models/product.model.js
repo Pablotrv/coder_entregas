@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose';
-import { PRODUCT_STATUS } from '../constants/index.js';
+import { Schema, model } from "mongoose";
+import { PRODUCT_STATUS } from "../domain.js";
 
 const productSchema = new Schema(
   {
@@ -12,7 +12,7 @@ const productSchema = new Schema(
       default: PRODUCT_STATUS.AVAILABLE,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export const ProductModel = model('Product', productSchema);
+export const ProductModel = model("Product", productSchema);
