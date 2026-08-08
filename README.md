@@ -34,15 +34,15 @@ API REST para la gestión de productos y usuarios de **ShipNow**. Este proyecto 
     Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables:
 
     ```env
-    # Puerto para el servidor
+    # Configuración del servidor
     PORT=8080
-
-    # URI de conexión a MongoDB
-    MONGO_URI=mongodb://localhost:27017/shipnow
-
-    # Entorno de la aplicación (development o production)
     NODE_ENV=development
+
+    # Configuración de la base de datos MongoDB
+    MONGO_URI=mongodb://localhost:27017/shipnow
     ```
+
+    > **Nota importante**: La aplicación valida la presencia de `PORT`, `NODE_ENV` y `MONGO_URI` al arrancar. Si alguna de estas variables no está definida en el entorno o en el archivo `.env`, el servidor no se iniciará y mostrará un error fatal. Esto garantiza un comportamiento predecible y evita fallos en tiempo de ejecución por falta de configuración.
 
 ---
 
@@ -52,7 +52,7 @@ El código está estructurado bajo el principio de separación de responsabilida
 
 ```text
 src/
-├── config/         # Configuración centralizada y validación de entorno
+├── config/         # Configuración (entorno, logger)
 ├── constants/      # Constantes inmutables (roles, estados de productos)
 ├── controllers/    # Manejo de peticiones HTTP (req/res)
 ├── models/         # Esquemas de Mongoose

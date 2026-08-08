@@ -1,4 +1,4 @@
-import { ROLES } from "../domain.js";
+import { ROLES } from "../constants/domain.js";
 import { MockRepository } from "../repositories/mock.repository.js";
 import { ProductRepository } from "../repositories/product.repository.js";
 import { UserRepository } from "../repositories/user.repository.js";
