@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { MockController } from "./../controllers/mock.controller.js";
+import { MockController } from "../controller/mock.controller.js";
 import { asyncWrapper } from "../errors/asyncWrapper.js";
 
 const router = Router();
