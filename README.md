@@ -68,6 +68,22 @@ src/
 
 ---
 
+## 📖 Documentación de la API con Swagger
+
+Este proyecto utiliza **Swagger** para generar documentación interactiva de la API, permitiendo a los desarrolladores explorar y probar los endpoints fácilmente.
+
+### Acceso a la Documentación
+
+Una vez que el servidor esté en funcionamiento, puedes acceder a la interfaz de Swagger UI desde tu navegador en la siguiente URL:
+
+**`http://localhost:8080/api/docs`**
+
+### ¿Qué está documentado?
+
+- **Endpoints**: Todos los endpoints principales de `Users`, `Products` y `Mocks`, incluyendo métodos, parámetros, cuerpos de solicitud y respuestas esperadas (tanto exitosas como de error).
+- **Schemas**: Se han definido schemas reutilizables para las entidades principales (`User`, `Product`, `Order`) y para la estructura de respuesta de errores.
+- **Logger**: Se incluye un endpoint de prueba (`/loggerTest`) para verificar la configuración del logger.
+
 ## 🧪 Endpoints de Mocking
 
 Se ha incorporado un módulo de mocking para generar datos de prueba realistas.

@@ -1,11 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
+import swaggerUi from "swagger-ui-express";
 import { config } from "./config/env.config.js";
 import { logger } from "./config/logger.config.js";
 import productRoutes from "./routes/product.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import mockRoutes from "./routes/mock.routes.js";
 import { errorHandler } from "./errors/errorHandler.js";
+import { swaggerSpecs } from "./config/swagger.config.js";
 
 const app = express();
 
@@ -17,11 +19,31 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// Ruta para la documentación de Swagger
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+
 // Registro de rutas
 app.use("/api/mocks", mockRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 
+/**
+ * @swagger
+ * /loggerTest:
+ *   get:
+ *     summary: Prueba los niveles de logging
+ *     description: Genera un log de ejemplo para cada nivel de severidad (debug, http, info, warning, error, fatal) para verificar la configuración actual de Winston.
+ *     tags:
+ *       - Logger
+ *     responses:
+ *       200:
+ *         description: Mensaje de confirmación. Los logs se muestran en la consola y/o archivos de log según el entorno.
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: Logs de prueba generados. Revisa la consola y/o el archivo de logs.
+ */
 // Endpoint de prueba del logger
 app.get("/loggerTest", (req, res) => {
   logger.debug("Este es un log de debug.");
