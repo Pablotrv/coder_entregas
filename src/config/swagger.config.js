@@ -74,6 +74,43 @@ const swaggerOptions = {
             role: "user",
           },
         },
+        CreateUser: {
+          type: "object",
+          properties: {
+            firstName: { type: "string", description: "Nombre del usuario." },
+            lastName: { type: "string", description: "Apellido del usuario." },
+            email: {
+              type: "string",
+              format: "email",
+              description: "Correo electrónico único del usuario.",
+            },
+            password: {
+              type: "string",
+              format: "password",
+              description: "Contraseña del usuario (mínimo 8 caracteres).",
+            },
+            role: {
+              type: "string",
+              enum: ["admin", "user", "delivery"],
+              description: "Rol del usuario.",
+              default: "user",
+            },
+          },
+          required: ["firstName", "lastName", "email", "password"],
+        },
+        CreateProduct: {
+          type: "object",
+          properties: {
+            name: { type: "string", description: "Nombre del producto." },
+            price: { type: "number", description: "Precio del producto." },
+            stock: { type: "number", description: "Cantidad en stock." },
+            category: {
+              type: "string",
+              description: "Categoría del producto.",
+            },
+          },
+          required: ["name", "price", "stock", "category"],
+        },
         Order: {
           type: "object",
           properties: {

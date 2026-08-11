@@ -63,22 +63,7 @@ router.get(
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               price:
- *                 type: number
- *               stock:
- *                 type: number
- *               category:
- *                 type: string
- *             example:
- *               name: "Teclado Mecánico RGB"
- *               price: 85.50
- *               stock: 120
- *               category: "Periféricos"
+ *           schema: { $ref: '#/components/schemas/CreateProduct' }
  *     responses:
  *       201:
  *         description: Producto creado exitosamente.
@@ -93,7 +78,15 @@ router.get(
  *                 data:
  *                   $ref: '#/components/schemas/Product'
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error interno del servidor o de la base de datos.
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/ErrorResponse' }
+ *       400:
+ *         description: Datos de entrada inválidos.
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/ErrorResponse' }
  */
 router.post(
   "/",

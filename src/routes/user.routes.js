@@ -57,31 +57,27 @@ router.get(
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               firstName:
- *                 type: string
- *               lastName:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *               role:
- *                 type: string
- *                 enum: [user, admin, delivery]
- *             example:
- *               firstName: "Jane"
- *               lastName: "Doe"
- *               email: "jane.doe@example.com"
- *               password: "password123"
- *               role: "user"
+ *           schema: { $ref: '#/components/schemas/CreateUser' }
  *     responses:
  *       201:
  *         description: Usuario creado exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: string, example: success }
+ *                 data: { $ref: '#/components/schemas/User' }
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error interno del servidor o de la base de datos.
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/ErrorResponse' }
+ *       400:
+ *         description: Datos de entrada inválidos (ej. email ya existe).
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/ErrorResponse' }
  */
 router.post(
   "/",
