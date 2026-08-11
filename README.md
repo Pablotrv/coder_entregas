@@ -38,11 +38,11 @@ API REST para la gestión de productos y usuarios de **ShipNow**. Este proyecto 
     PORT=8080
     NODE_ENV=development
 
-    # Configuración de la base de datos MongoDB
-    MONGO_URI=mongodb://localhost:27017/shipnow
+    # Configuración de la base de datos MongoDB (ej. Atlas o local)
+    MONGODB_URI=mongodb://localhost:27017/shipnow
     ```
 
-    > **Nota importante**: La aplicación valida la presencia de `PORT`, `NODE_ENV` y `MONGO_URI` al arrancar. Si alguna de estas variables no está definida en el entorno o en el archivo `.env`, el servidor no se iniciará y mostrará un error fatal. Esto garantiza un comportamiento predecible y evita fallos en tiempo de ejecución por falta de configuración.
+    > **Nota importante**: La aplicación valida la presencia de `PORT`, `NODE_ENV` y `MONGODB_URI` al arrancar. Si alguna de estas variables no está definida en el entorno o en el archivo `.env`, el servidor no se iniciará y mostrará un error fatal. Esto garantiza un comportamiento predecible y evita fallos en tiempo de ejecución por falta de configuración.
 
 ---
 
