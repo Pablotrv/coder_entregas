@@ -5,6 +5,7 @@ import { config } from "./config/env.config.js";
 import { logger } from "./config/logger.config.js";
 import productRoutes from "./routes/product.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import orderRoutes from "./routes/order.routes.js";
 import mockRoutes from "./routes/mock.routes.js";
 import { errorHandler } from "./errors/errorHandler.js";
 import { swaggerSpecs } from "./config/swagger.config.js";
@@ -26,6 +27,7 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use("/api/mocks", mockRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
 
 /**
  * @swagger

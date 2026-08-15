@@ -39,7 +39,7 @@ API REST para la gestión de productos y usuarios de **ShipNow**. Este proyecto 
     NODE_ENV=development
 
     # Configuración de la base de datos MongoDB (ej. Atlas o local)
-    MONGODB_URI=mongodb://localhost:27017/shipnow
+    MONGODB_URI="mongodb+srv://<user>:<password>@cluster.mongodb.net/shipnow?retryWrites=true&w=majority"
     ```
 
     > **Nota importante**: La aplicación valida la presencia de `PORT`, `NODE_ENV` y `MONGODB_URI` al arrancar. Si alguna de estas variables no está definida en el entorno o en el archivo `.env`, el servidor no se iniciará y mostrará un error fatal. Esto garantiza un comportamiento predecible y evita fallos en tiempo de ejecución por falta de configuración.
@@ -78,7 +78,23 @@ npm test
 
 ---
 
-## 📖 Documentación de la API con Swagger
+## 📦 Gestión de Pedidos y Entregas
+
+El sistema incluye endpoints para la creación de pedidos y la asignación de entregas.
+
+### Endpoints de Pedidos
+
+- **`POST /api/orders`**: Crea un nuevo pedido.
+  - Recibe el `userId` y un arreglo de `items` (con `productId` y `quantity`).
+  - Valida que el usuario y los productos existan.
+  - Verifica que haya stock suficiente para cada producto y lo descuenta.
+  - Calcula el precio total y crea el pedido en estado `pending`.
+- **`GET /api/orders/:id`**: Obtiene los detalles de un pedido específico.
+- **`PATCH /api/orders/:id/assign-delivery`**: Asigna un repartidor a un pedido.
+  - Cambia el estado del pedido a `shipped`.
+  - Genera un número de seguimiento y una fecha estimada de entrega.
+
+## � Documentación de la API con Swagger
 
 Este proyecto utiliza **Swagger** para generar documentación interactiva de la API, permitiendo a los desarrolladores explorar y probar los endpoints fácilmente.
 
