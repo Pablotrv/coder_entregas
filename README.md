@@ -68,6 +68,16 @@ src/
 
 ---
 
+## 🧪 Ejecución de Pruebas
+
+El proyecto incluye una suite de tests funcionales automatizados con Mocha, Chai y Supertest. Para ejecutar las pruebas, utiliza el siguiente comando:
+
+```bash
+npm test
+```
+
+---
+
 ## 📖 Documentación de la API con Swagger
 
 Este proyecto utiliza **Swagger** para generar documentación interactiva de la API, permitiendo a los desarrolladores explorar y probar los endpoints fácilmente.

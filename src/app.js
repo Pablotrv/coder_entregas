@@ -9,7 +9,7 @@ import mockRoutes from "./routes/mock.routes.js";
 import { errorHandler } from "./errors/errorHandler.js";
 import { swaggerSpecs } from "./config/swagger.config.js";
 
-const app = express();
+export const app = express(); // Export the app
 
 // Middleware para loggear requests
 app.use((req, res, next) => {
