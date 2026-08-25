@@ -152,6 +152,32 @@ const swaggerOptions = {
             },
           },
         },
+        FileMetadata: {
+          type: "object",
+          properties: {
+            _id: { type: "string" },
+            originalName: { type: "string", example: "identity.pdf" },
+            storedName: { type: "string", example: "1710000000-uuid.pdf" },
+            path: {
+              type: "string",
+              example: "uploads/user/60d0.../identity.pdf",
+            },
+            mimeType: { type: "string", example: "application/pdf" },
+            size: { type: "integer", example: 24576 },
+            documentType: { type: "string", example: "identity" },
+            entityType: { type: "string", enum: ["user", "order", "delivery"] },
+            entityId: { type: "string" },
+            createdAt: { type: "string", format: "date-time" },
+          },
+        },
+        FileUpload: {
+          type: "object",
+          required: ["file", "documentType"],
+          properties: {
+            file: { type: "string", format: "binary" },
+            documentType: { type: "string", example: "identity" },
+          },
+        },
         ErrorResponse: {
           type: "object",
           properties: {

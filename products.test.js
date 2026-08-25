@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
 import { expect } from "chai";
-import { app } from "../src/app.js";
-import { config } from "../src/config/env.config.js";
-import { ProductModel } from "../src/models/product.model.js";
+import { app } from "./src/app.js";
+import { config } from "./src/config/env.config.js";
+import { ProductModel } from "./src/models/product.model.js";
 
 const requester = supertest(app);
 

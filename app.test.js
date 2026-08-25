@@ -1,6 +1,6 @@
 import supertest from "supertest";
 import { expect } from "chai";
-import { app } from "../src/app.js";
+import { app } from "./src/app.js";
 
 const requester = supertest(app);
 

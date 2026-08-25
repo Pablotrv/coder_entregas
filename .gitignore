@@ -6,3 +6,6 @@ node_modules/
 
 # Logs
 /logs
+
+# Archivos cargados durante la ejecución
+/uploads

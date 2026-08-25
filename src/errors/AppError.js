@@ -1,10 +1,19 @@
 export class AppError extends Error {
-  constructor({
-    message,
-    statusCode = 500,
-    errorCode = "INTERNAL_SERVER_ERROR",
-    details = null,
-  }) {
+  constructor(options, legacyErrorCode, legacyStatusCode) {
+    const normalizedOptions =
+      typeof options === "string"
+        ? {
+            message: options,
+            errorCode: legacyErrorCode,
+            statusCode: legacyStatusCode,
+          }
+        : options;
+    const {
+      message,
+      statusCode = 500,
+      errorCode = "INTERNAL_SERVER_ERROR",
+      details = null,
+    } = normalizedOptions;
     super(message);
     this.name = "AppError";
     this.statusCode = statusCode;

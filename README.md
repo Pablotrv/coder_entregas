@@ -12,6 +12,7 @@ API REST para la gestión de productos y usuarios de **ShipNow**. Este proyecto 
 - **Winston** y **winston-daily-rotate-file** para logging profesional.
 - **dotenv** para la gestión de variables de entorno.
 - **@faker-js/faker** para la generación de datos de prueba.
+- **Multer** para la carga de documentos y comprobantes.
 
 ---
 
@@ -40,6 +41,10 @@ API REST para la gestión de productos y usuarios de **ShipNow**. Este proyecto 
 
     # Configuración de la base de datos MongoDB (ej. Atlas o local)
     MONGODB_URI="mongodb+srv://<user>:<password>@cluster.mongodb.net/shipnow?retryWrites=true&w=majority"
+
+    # Configuración de archivos (opcional)
+    UPLOAD_DIR="./uploads"
+    MAX_FILE_SIZE=5242880
     ```
 
     > **Nota importante**: La aplicación valida la presencia de `PORT`, `NODE_ENV` y `MONGODB_URI` al arrancar. Si alguna de estas variables no está definida en el entorno o en el archivo `.env`, el servidor no se iniciará y mostrará un error fatal. Esto garantiza un comportamiento predecible y evita fallos en tiempo de ejecución por falta de configuración.
@@ -201,5 +206,17 @@ Para verificar que todos los niveles de log funcionan correctamente en el entorn
   Revisa la consola y, si estás en producción, la carpeta `logs/` para ver los resultados.
 
 ```
+
+## Carga de documentos y comprobantes
+
+La API acepta archivos `PDF`, `JPG`, `PNG` y `WEBP` de hasta 5 MB por defecto. Los binarios se guardan en `uploads/<entidad>/<id>` y sus metadatos se registran en MongoDB. El directorio puede cambiarse con `UPLOAD_DIR` y el límite con `MAX_FILE_SIZE`.
+
+Todos los endpoints usan `multipart/form-data` con los campos `file` y `documentType`.
+
+- `POST /api/users/:id/documents` y `GET /api/users/:id/documents`
+- `POST /api/orders/:id/receipts` y `GET /api/orders/:id/receipts`
+- `POST /api/deliveries/:id/documents` y `GET /api/deliveries/:id/documents`
+
+Los errores de carga respetan el formato centralizado y pueden informar `FILE_REQUIRED`, `FILE_TYPE_NOT_ALLOWED`, `FILE_TOO_LARGE` o `FILE_UPLOAD_ERROR`.
 
 ```

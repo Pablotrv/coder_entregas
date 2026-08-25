@@ -4,7 +4,7 @@ import { UserRepository } from "../repositories/user.repository.js";
 import { ProductRepository } from "../repositories/product.repository.js";
 import { AppError } from "../errors/AppError.js";
 import { ERROR_CODES } from "../errors/errorCodes.js";
-import { ORDER_STATUS } from "../constants/order.constants.js";
+import { ORDER_STATUS } from "../../order.constants.js";
 
 export class OrderService {
   constructor() {

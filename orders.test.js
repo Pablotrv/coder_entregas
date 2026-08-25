@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
 import { expect } from "chai";
-import { app } from "../src/app.js";
-import { config } from "../src/config/env.config.js";
-import UserModel from "../src/models/user.model.js";
-import { ProductModel } from "../src/models/product.model.js";
-import OrderModel from "../src/models/order.model.js";
+import { app } from "./src/app.js";
+import { config } from "./src/config/env.config.js";
+import UserModel from "./src/models/user.model.js";
+import { ProductModel } from "./src/models/product.model.js";
+import OrderModel from "./src/models/order.model.js";
 
 const requester = supertest(app);
 

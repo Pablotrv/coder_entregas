@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ORDER_STATUS } from "../constants/order.constants.js";
+import { ORDER_STATUS } from "../../order.constants.js";
 
 const orderSchema = new mongoose.Schema(
   {

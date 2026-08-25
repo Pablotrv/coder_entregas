@@ -19,6 +19,26 @@ export const errorDictionary = {
     errorCode: "MOCK_GENERATION_FAILED",
     message: "No se pudo generar datos de prueba.",
   },
+  FILE_REQUIRED: {
+    statusCode: 400,
+    errorCode: "FILE_REQUIRED",
+    message: "Debe enviar un archivo.",
+  },
+  FILE_TYPE_NOT_ALLOWED: {
+    statusCode: 400,
+    errorCode: "FILE_TYPE_NOT_ALLOWED",
+    message: "Tipo de archivo no permitido.",
+  },
+  FILE_TOO_LARGE: {
+    statusCode: 400,
+    errorCode: "FILE_TOO_LARGE",
+    message: "El archivo supera el tamaño máximo permitido.",
+  },
+  FILE_UPLOAD_ERROR: {
+    statusCode: 400,
+    errorCode: "FILE_UPLOAD_ERROR",
+    message: "No se pudo procesar el archivo enviado.",
+  },
   UNAUTHORIZED: {
     statusCode: 401,
     errorCode: "UNAUTHORIZED",
