@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import supertest from "supertest";
 import { expect } from "chai";
 import { app } from "./src/app.js";
-import { config } from "./src/config/env.config.js";
+import { ensureTestMongo } from "./src/config/testDb.config.js";
 import { ProductModel } from "./src/models/product.model.js";
 
 const requester = supertest(app);
@@ -10,9 +10,10 @@ const requester = supertest(app);
 describe("Product API Tests", () => {
   // Connect to the database before running tests
   before(async function () {
-    this.timeout(10000);
+    this.timeout(20000);
+    const mongoUri = await ensureTestMongo();
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(config.mongoUri);
+      await mongoose.connect(mongoUri);
     }
   });
 

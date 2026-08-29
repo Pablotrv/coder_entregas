@@ -4,6 +4,7 @@ import supertest from "supertest";
 import { expect } from "chai";
 import { app } from "./src/app.js";
 import { config } from "./src/config/env.config.js";
+import { ensureTestMongo } from "./src/config/testDb.config.js";
 import UserModel from "./src/models/user.model.js";
 import OrderModel from "./src/models/order.model.js";
 import FileModel from "./src/models/file.model.js";
@@ -22,9 +23,10 @@ describe("File Upload API Tests", () => {
   let testOrder;
 
   before(async function () {
-    this.timeout(10000);
+    this.timeout(20000);
+    const mongoUri = await ensureTestMongo();
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(config.mongoUri);
+      await mongoose.connect(mongoUri);
     }
   });
 

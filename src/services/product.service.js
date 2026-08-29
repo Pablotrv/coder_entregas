@@ -1,5 +1,6 @@
 import { ProductRepository } from "../repositories/product.repository.js";
 import { PRODUCT_STATUS } from "../domain.js";
+import { AppError } from "../errors/AppError.js";
 
 const productRepository = new ProductRepository();
 
@@ -16,9 +17,35 @@ export class ProductService {
   }
 
   async createProduct(productData) {
-    if (productData.stock <= 0) {
-      productData.status = PRODUCT_STATUS.OUT_OF_STOCK;
+    try {
+      if (!productData) {
+        throw new AppError({
+          statusCode: 400,
+          errorCode: "INVALID_INPUT",
+          message: "Datos de entrada inválidos.",
+        });
+      }
+
+      if (productData.stock <= 0) {
+        productData.status = PRODUCT_STATUS.OUT_OF_STOCK;
+      }
+
+      return await productRepository.create(productData);
+    } catch (error) {
+      if (error instanceof AppError) {
+        throw error;
+      }
+
+      if (error?.name === "ValidationError" || error?.name === "CastError") {
+        throw new AppError({
+          statusCode: 400,
+          errorCode: "INVALID_INPUT",
+          message: "Datos de entrada inválidos.",
+          details: error.message,
+        });
+      }
+
+      throw error;
     }
-    return await productRepository.create(productData);
   }
 }

@@ -75,13 +75,23 @@ app.use((req, res) => {
 
 app.use(errorHandler);
 
-// Conexión usando la configuración centralizada
-mongoose
-  .connect(config.mongoUri)
-  .then(() => {
-    logger.info("Conectado exitosamente a MongoDB");
-    app.listen(config.port, () => {
-      logger.info(`Servidor ShipNow en puerto ${config.port} [${config.env}]`);
-    });
-  })
-  .catch((err) => logger.fatal("Error fatal al conectar a MongoDB:", err));
+// Conexión usando la configuración centralizada.
+// En entorno de pruebas no se conecta a MongoDB local ni se levanta el servidor;
+// los tests usan una base en memoria y supertest sobre la app exportada.
+if (config.mongoUri && process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(config.mongoUri)
+    .then(() => {
+      logger.info("Conectado exitosamente a MongoDB");
+      app.listen(config.port, () => {
+        logger.info(
+          `Servidor ShipNow en puerto ${config.port} [${config.env}]`,
+        );
+      });
+    })
+    .catch((err) => logger.fatal("Error fatal al conectar a MongoDB:", err));
+} else if (process.env.NODE_ENV === "test") {
+  logger.info(
+    "Entorno de pruebas activo: se omite la conexión a MongoDB local.",
+  );
+}
