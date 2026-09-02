@@ -18,7 +18,12 @@ const controller = new MockController();
  *   get:
  *     summary: Genera un listado de usuarios de prueba
  *     tags: [Mocks]
- *     description: Devuelve un listado de 50 usuarios generados al azar sin guardarlos en la base de datos.
+ *     description: Devuelve usuarios generados al azar sin guardarlos en la base de datos.
+ *     parameters:
+ *       - in: query
+ *         name: count
+ *         schema: { type: integer, minimum: 1, default: 50 }
+ *         description: Cantidad de usuarios a generar.
  *     responses:
  *       200:
  *         description: Listado de usuarios de prueba.
@@ -43,7 +48,12 @@ router.get("/users", asyncWrapper(controller.getMockUsers));
  *   post:
  *     summary: Crea e inserta usuarios de prueba en la BD
  *     tags: [Mocks]
- *     description: Crea 50 usuarios de prueba y los inserta en la base de datos.
+ *     description: Crea usuarios de prueba y los inserta en la base de datos.
+ *     parameters:
+ *       - in: query
+ *         name: count
+ *         schema: { type: integer, minimum: 1, default: 50 }
+ *         description: Cantidad de usuarios a crear.
  *     responses:
  *       201:
  *         description: Usuarios creados e insertados exitosamente.
@@ -68,7 +78,12 @@ router.post("/users", asyncWrapper(controller.createMockUsers));
  *   get:
  *     summary: Genera un listado de pedidos de prueba
  *     tags: [Mocks]
- *     description: Devuelve un listado de 20 pedidos generados al azar sin guardarlos en la base de datos. Requiere que existan usuarios y productos en la BD para obtener referencias.
+ *     description: Devuelve pedidos de prueba sin guardarlos en la base de datos. Requiere que existan usuarios y productos en la BD para obtener referencias.
+ *     parameters:
+ *       - in: query
+ *         name: count
+ *         schema: { type: integer, minimum: 1, default: 20 }
+ *         description: Cantidad de pedidos a generar.
  *     responses:
  *       200:
  *         description: Listado de pedidos de prueba.
@@ -99,7 +114,12 @@ router.get("/orders", asyncWrapper(controller.getMockOrders));
  *   post:
  *     summary: Crea e inserta pedidos de prueba en la BD
  *     tags: [Mocks]
- *     description: Crea 20 pedidos de prueba y los inserta en la base de datos. Requiere que existan usuarios y productos previamente.
+ *     description: Crea pedidos de prueba y los inserta en la base de datos. Requiere que existan usuarios y productos previamente.
+ *     parameters:
+ *       - in: query
+ *         name: count
+ *         schema: { type: integer, minimum: 1, default: 20 }
+ *         description: Cantidad de pedidos a crear.
  *     responses:
  *       201:
  *         description: Pedidos creados e insertados exitosamente.

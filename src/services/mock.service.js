@@ -12,34 +12,34 @@ export class MockService {
     this.productRepository = new ProductRepository();
   }
 
-  generateUsers() {
-    return generateUsers(50);
+  generateUsers(count = 50) {
+    return generateUsers(count);
   }
 
-  async createAndInsertUsers() {
-    const users = generateUsers(50);
+  async createAndInsertUsers(count = 50) {
+    const users = generateUsers(count);
     const insertedUsers = await this.mockRepository.bulkCreateUsers(users);
     return insertedUsers;
   }
 
-  async generateOrders() {
+  async generateOrders(count = 20) {
     const users = await this.userRepository.getUsers({ role: ROLES.USER });
     const deliveryPersonnel = await this.userRepository.getUsers({
       role: ROLES.DELIVERY,
     });
     const products = await this.productRepository.getProducts({});
 
-    return generateOrders(20, users, deliveryPersonnel, products);
+    return generateOrders(count, users, deliveryPersonnel, products);
   }
 
-  async createAndInsertOrders() {
+  async createAndInsertOrders(count = 20) {
     const users = await this.userRepository.getUsers({ role: ROLES.USER });
     const deliveryPersonnel = await this.userRepository.getUsers({
       role: ROLES.DELIVERY,
     });
     const products = await this.productRepository.getProducts({});
 
-    const orders = generateOrders(20, users, deliveryPersonnel, products);
+    const orders = generateOrders(count, users, deliveryPersonnel, products);
     const insertedOrders = await this.mockRepository.bulkCreateOrders(orders);
     return insertedOrders;
   }

@@ -4,22 +4,26 @@ const mockService = new MockService();
 
 export class MockController {
   async getMockUsers(req, res) {
-    const users = await mockService.generateUsers();
+    const count = req.query.count === undefined ? 50 : Number(req.query.count);
+    const users = await mockService.generateUsers(count);
     return res.status(200).json({ status: "success", data: users });
   }
 
   async createMockUsers(req, res) {
-    const insertedUsers = await mockService.createAndInsertUsers();
+    const count = req.query.count === undefined ? 50 : Number(req.query.count);
+    const insertedUsers = await mockService.createAndInsertUsers(count);
     return res.status(201).json({ status: "success", data: insertedUsers });
   }
 
   async getMockOrders(req, res) {
-    const orders = await mockService.generateOrders();
+    const count = req.query.count === undefined ? 20 : Number(req.query.count);
+    const orders = await mockService.generateOrders(count);
     return res.status(200).json({ status: "success", data: orders });
   }
 
   async createMockOrders(req, res) {
-    const insertedOrders = await mockService.createAndInsertOrders();
+    const count = req.query.count === undefined ? 20 : Number(req.query.count);
+    const insertedOrders = await mockService.createAndInsertOrders(count);
     return res.status(201).json({ status: "success", data: insertedOrders });
   }
 }

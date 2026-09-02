@@ -59,18 +59,20 @@ app.use(fileRoutes);
  *               type: string
  *               example: Logs de prueba generados. Revisa la consola y/o el archivo de logs.
  */
-// Endpoint de prueba del logger
-app.get("/loggerTest", (req, res) => {
-  logger.debug("Este es un log de debug.");
-  logger.http("Este es un log de http.");
-  logger.info("Este es un log de info.");
-  logger.warning("Este es un log de warning.");
-  logger.error("Este es un log de error.");
-  logger.fatal("Este es un log de fatal.");
-  res.send(
-    "Logs de prueba generados. Revisa la consola y/o el archivo de logs.",
-  );
-});
+// Endpoint de prueba del logger: no se expone en producción.
+if (config.env !== "production") {
+  app.get("/loggerTest", (req, res) => {
+    logger.debug("Este es un log de debug.");
+    logger.http("Este es un log de http.");
+    logger.info("Este es un log de info.");
+    logger.warning("Este es un log de warning.");
+    logger.error("Este es un log de error.");
+    logger.fatal("Este es un log de fatal.");
+    res.send(
+      "Logs de prueba generados. Revisa la consola y/o el archivo de logs.",
+    );
+  });
+}
 
 app.use((req, res) => {
   logger.warning(`Ruta no encontrada: ${req.method} ${req.originalUrl}`);

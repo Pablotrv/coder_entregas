@@ -54,12 +54,12 @@ Incluye schemas de `User`, `Order`, `Product`, `FileMetadata`, `ErrorResponse` y
 - `POST /api/orders`: creación de pedidos con validación de stock.
 - `GET /api/orders/:id`: detalle de un pedido.
 - `PATCH /api/orders/:id/assign-delivery`: asignación y tracking de entrega.
-- `GET/POST /api/mocks/users` y `GET/POST /api/mocks/orders`: generación de mocks.
+- `GET/POST /api/mocks/users` y `GET/POST /api/mocks/orders`: generación de mocks; aceptan `?count=entero_positivo`.
 - `POST/GET /api/users/:id/documents`: documentos de usuarios.
 - `POST/GET /api/orders/:id/receipts`: comprobantes de pedidos.
 - `POST/GET /api/deliveries/:id/documents`: documentos de entregas.
 - `GET /health`: health check.
-- `GET /loggerTest`: prueba de niveles de logging.
+- `GET /loggerTest`: prueba de niveles de logging, disponible solo fuera de producción.
 
 Las respuestas de error usan siempre `{ status: "error", error: { code, message, details } }`. Se controlan recursos inexistentes, datos inválidos, estados inválidos, cantidad inválida de mocks y errores de archivos (`FILE_REQUIRED`, `FILE_TYPE_NOT_ALLOWED`, `FILE_TOO_LARGE`).
 
