@@ -1,8 +1,18 @@
-import { ProductModel } from '../models/product.model.js';
+import { ProductModel } from "../models/product.model.js";
 
 export class ProductRepository {
-  async findAll() {
-    return await ProductModel.find();
+  async count(filters = {}) {
+    return ProductModel.countDocuments(filters);
+  }
+
+  async findAll(filters = {}, options = {}) {
+    const { limit = 10, page = 1 } = options;
+    const skip = (page - 1) * limit;
+
+    return ProductModel.find(filters)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
   }
 
   async findById(id) {

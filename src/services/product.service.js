@@ -5,15 +5,35 @@ import { AppError } from "../errors/AppError.js";
 const productRepository = new ProductRepository();
 
 export class ProductService {
-  async getAllProducts(onlyInStock = false) {
-    const products = await productRepository.findAll();
+  async getAllProducts(onlyInStock = false, pagination = {}) {
+    const limit =
+      Number.isInteger(pagination.limit) && pagination.limit > 0
+        ? Math.min(pagination.limit, 100)
+        : 10;
+    const page =
+      Number.isInteger(pagination.page) && pagination.page > 0
+        ? pagination.page
+        : 1;
 
-    if (onlyInStock) {
-      return products.filter(
-        (p) => p.stock > 0 && p.status === PRODUCT_STATUS.AVAILABLE,
-      );
-    }
-    return products;
+    const filters = onlyInStock
+      ? { stock: { $gt: 0 }, status: PRODUCT_STATUS.AVAILABLE }
+      : {};
+
+    const total = await productRepository.count(filters);
+    const products = await productRepository.findAll(filters, { limit, page });
+    const totalPages = total === 0 ? 1 : Math.ceil(total / limit);
+    const safePage = Math.min(page, totalPages);
+
+    return {
+      products,
+      pagination: {
+        total,
+        page: safePage,
+        limit,
+        totalPages,
+        hasNextPage: safePage < totalPages,
+      },
+    };
   }
 
   async createProduct(productData) {

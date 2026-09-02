@@ -70,6 +70,37 @@ src/
 ## ▶️ Scripts Disponibles
 
 - **`npm start`**: Inicia el servidor en el puerto y entorno definidos en el archivo `.env`.
+- **`npm test`**: Ejecuta la suite funcional con MongoDB en memoria.
+
+---
+
+## 🚀 Performance, escalabilidad y entorno de producción
+
+Se aplicaron varias buenas prácticas para un entorno más cercano a producción:
+
+- Listados paginados con `limit` y `page` en `GET /api/products`.
+- Máximo de 100 elementos por página para evitar respuestas enormes.
+- Límite de payload HTTP de `1 MB` para evitar abuso de memoria.
+- Desactivación de `x-powered-by` para reducir exposición de información.
+- Variables de entorno centralizadas con validación del puerto, entorno y MongoDB.
+- Health check en `GET /health` para integración con Docker, orchestrators y monitoreo.
+
+### Endpoint de salud
+
+```bash
+curl http://localhost:8080/health
+```
+
+Respuesta esperada:
+
+```json
+{
+  "status": "ok",
+  "service": "shipnow-api",
+  "environment": "production",
+  "timestamp": "2026-09-01T12:00:00.000Z"
+}
+```
 
 ---
 
@@ -83,7 +114,33 @@ npm test
 
 ---
 
-## 📦 Gestión de Pedidos y Entregas
+## � Docker
+
+Se incluye un `Dockerfile` y un `.dockerignore` para ejecutar la API en contenedores.
+
+### Construir la imagen
+
+```bash
+docker build -t shipnow-api .
+```
+
+### Ejecutar el contenedor
+
+```bash
+docker run -d \
+  --name shipnow-api \
+  -p 8080:8080 \
+  -e NODE_ENV=production \
+  -e PORT=8080 \
+  -e MONGODB_URI="mongodb+srv://<user>:<password>@cluster.mongodb.net/shipnow?retryWrites=true&w=majority" \
+  shipnow-api
+```
+
+El contenedor expone el puerto `8080` y ejecuta un health check cada 30 segundos sobre `http://localhost:8080/health`.
+
+---
+
+## �📦 Gestión de Pedidos y Entregas
 
 El sistema incluye endpoints para la creación de pedidos y la asignación de entregas.
 
