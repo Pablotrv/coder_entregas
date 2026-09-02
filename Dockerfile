@@ -1,12 +1,18 @@
-FROM node:20-alpine
+FROM node:20-alpine AS dependencies
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+FROM node:20-alpine AS runtime
 
 WORKDIR /app
 
 ENV NODE_ENV=production \
     PORT=8080
 
-COPY package*.json ./
-RUN npm install --omit=dev
+COPY --from=dependencies /app/node_modules ./node_modules
 
 COPY . .
 

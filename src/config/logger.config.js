@@ -29,15 +29,13 @@ const createLogger = (env) => {
       levels: customLevels.levels,
       level: "info",
       transports: [
-        new winston.transports.Console({
-          format: winston.format.simple(),
+        new winston.transports.File({
+          filename: "./logs/combined.log",
+          level: "info",
+          format: winston.format.json(),
         }),
-        new winston.transports.DailyRotateFile({
-          filename: "./logs/error-%DATE%.log",
-          datePattern: "YYYY-MM-DD",
-          zippedArchive: true,
-          maxSize: "20m",
-          maxFiles: "14d",
+        new winston.transports.File({
+          filename: "./logs/error.log",
           level: "error",
           format: winston.format.json(),
         }),
